@@ -1,61 +1,799 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Ilham Budi Trisetyo | IT</title>
-        <link rel="stylesheet" href="style.css">
-        <link rel="icon" type="image/png" href="assets/logo_saya.png">
-    </head>
+<html lang="id" class="scroll-smooth">
 
-    <body>
-        <div class="header">
-            <table>
-                <tr>
-                    <td class="img"><img src="assets/pas_photo.jpg" alt="Ilham Budi Trisetyo" style="border-radius: 50%;margin: left;"width="150px" height="150px">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<p style="font-family: arial; font-size: 20px;"><b>Ilham Budi Trisetyo</b><br>IT</p></td>
-                </tr>
-                <tr>
-                    <td colspan="2"><p style="text-align: justify;">Saya Ilham Budi Trisetyo, saya sekarang sedang berkuliah di Politeknik Negeri Cilacap program studi Teknik Informatika, saya seorang yang tertarik pada bidang IT, terutama bidang DevOps, Web Development, dan Networking</p></td>
-                </tr>
-            </table>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portfolio - Mahasiswa Teknik Informatika | Backend Engineering Enthusiast">
+    <title>Portfolio | Backend Developer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { inter: ['Inter', 'sans-serif'] },
+                    colors: {
+                        primary: { 50: '#eef2ff', 100: '#e0e7ff', 200: '#c7d2fe', 300: '#a5b4fc', 400: '#818cf8', 500: '#6366f1', 600: '#4f46e5', 700: '#4338ca', 800: '#3730a3', 900: '#312e81' },
+                        dark: { 50: '#f8fafc', 100: '#f1f5f9', 200: '#e2e8f0', 300: '#cbd5e1', 400: '#94a3b8', 500: '#64748b', 600: '#475569', 700: '#334155', 800: '#1e293b', 900: '#0f172a', 950: '#020617' }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #818cf8, #6366f1, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .glass {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(99, 102, 241, 0.1);
+        }
+
+        .card-hover {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(99, 102, 241, 0.15);
+            border-color: rgba(99, 102, 241, 0.4);
+        }
+
+        .skill-badge {
+            transition: all 0.3s ease;
+        }
+
+        .skill-badge:hover {
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.25);
+        }
+
+        .project-preview {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), filter 0.6s ease;
+            filter: brightness(0.7) saturate(0.9);
+        }
+
+        .group:hover .project-preview img {
+            transform: scale(1.08);
+            filter: brightness(0.85) saturate(1);
+        }
+
+        .project-preview::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(2, 6, 23, 0.9) 0%, rgba(2, 6, 23, 0.3) 40%, transparent 100%);
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .project-preview .preview-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 3;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .group:hover .project-preview .preview-icon {
+            opacity: 1;
+        }
+
+        .project-preview .fallback-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+            transition: all 0.5s ease;
+        }
+
+        .group:hover .project-preview .fallback-icon {
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        .project-preview img.img-error {
+            display: none;
+        }
+
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.15;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            50% {
+                transform: translate(30px, -30px) scale(1.1);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in-up {
+            animation: fadeInUp 0.6s ease-out forwards;
+            opacity: 0;
+        }
+
+        .delay-1 {
+            animation-delay: 0.1s;
+        }
+
+        .delay-2 {
+            animation-delay: 0.2s;
+        }
+
+        .delay-3 {
+            animation-delay: 0.3s;
+        }
+
+        .delay-4 {
+            animation-delay: 0.4s;
+        }
+
+        .nav-link {
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #6366f1, #a78bfa);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .hero-glow {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.12) 0%, transparent 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        input:focus,
+        textarea:focus {
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #4f46e5;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body class="bg-dark-950 text-dark-200 font-inter antialiased">
+
+    <!-- Navbar -->
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 lg:h-20">
+                <a href="#" class="text-xl lg:text-2xl font-bold tracking-tight">
+                    <span class="text-white"></span><span class="gradient-text"></span><span
+                        class="text-white"></span>
+                </a>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#home"
+                        class="nav-link text-sm font-medium text-dark-300 hover:text-white transition-colors">Home</a>
+                    <a href="#about"
+                        class="nav-link text-sm font-medium text-dark-300 hover:text-white transition-colors">About</a>
+                    <a href="#skills"
+                        class="nav-link text-sm font-medium text-dark-300 hover:text-white transition-colors">Skills</a>
+                    <a href="#projects"
+                        class="nav-link text-sm font-medium text-dark-300 hover:text-white transition-colors">Projects</a>
+                    <a href="#contact"
+                        class="nav-link text-sm font-medium px-5 py-2.5 bg-primary-600 hover:bg-primary-500 text-white rounded-full transition-all hover:shadow-lg hover:shadow-primary-600/25">Contact</a>
+                </div>
+                <button id="hamburger"
+                    class="md:hidden relative w-10 h-10 flex items-center justify-center text-white focus:outline-none"
+                    aria-label="Menu">
+                    <div class="space-y-1.5" id="hamburger-icon">
+                        <span class="block w-6 h-0.5 bg-white transition-all duration-300 origin-center"
+                            id="line1"></span>
+                        <span class="block w-6 h-0.5 bg-white transition-all duration-300" id="line2"></span>
+                        <span class="block w-4 h-0.5 bg-white transition-all duration-300 origin-center"
+                            id="line3"></span>
+                    </div>
+                </button>
+            </div>
         </div>
-        <div class="content">
-            <div class="box-container">
-                <div class="box">
-                    <button class="box-btn">About</button>
-                    <div class="dropdown">
-                        <p style="text-align: justify;">Sebagai lulusan Teknik Komputer dan Jaringan, saya memiliki minat yang besar untuk berkontribusi dalam lingkungan perusahaan. Pengalaman magang dan pengetahuan saya tentang jaringan, serta keterampilan yang relevan, telah mempersiapkan saya untuk bekerja di perusahaan ini. Saya adalah individu yang bertanggung jawab dan dapat diandalkan, yang mampu bekerja baik dalam tim maupun secara mandiri. Saya siap untuk terus belajar dan berkembang di perusahaan.</p>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="md:hidden overflow-hidden max-h-0 transition-all duration-500 ease-in-out">
+            <div class="px-4 pt-2 pb-6 space-y-1 glass border-t border-primary-500/10">
+                <a href="#home"
+                    class="mobile-link block px-4 py-3 text-dark-300 hover:text-white hover:bg-primary-600/10 rounded-xl transition-all">Home</a>
+                <a href="#about"
+                    class="mobile-link block px-4 py-3 text-dark-300 hover:text-white hover:bg-primary-600/10 rounded-xl transition-all">About</a>
+                <a href="#skills"
+                    class="mobile-link block px-4 py-3 text-dark-300 hover:text-white hover:bg-primary-600/10 rounded-xl transition-all">Skills</a>
+                <a href="#projects"
+                    class="mobile-link block px-4 py-3 text-dark-300 hover:text-white hover:bg-primary-600/10 rounded-xl transition-all">Projects</a>
+                <a href="#contact"
+                    class="mobile-link block px-4 py-3 text-dark-300 hover:text-white hover:bg-primary-600/10 rounded-xl transition-all">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <div class="hero-glow"></div>
+        <div class="blob w-72 h-72 bg-primary-600 top-20 -left-20"></div>
+        <div class="blob w-96 h-96 bg-violet-600 bottom-20 -right-20" style="animation-delay: -4s;"></div>
+        <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 text-center">
+            <div class="animate-fade-in-up">
+                <div
+                    class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary-500/20 bg-primary-500/5 mb-8">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                    <span class="text-sm text-primary-300">Open to opportunities</span>
+                </div>
+            </div>
+            <h1 class="text-4xl sm:text-5xl lg:text-7xl font-bold text-white leading-tight animate-fade-in-up delay-1">
+                Halo, saya <span class="gradient-text">Ilham</span>
+            </h1>
+            <p class="mt-4 text-lg sm:text-xl lg:text-2xl font-medium text-primary-300 animate-fade-in-up delay-2">
+                Web Developer | Network Engineer
+            </p>
+            <p
+                class="mt-6 text-base sm:text-lg text-dark-400 max-w-2xl mx-auto leading-relaxed animate-fade-in-up delay-3">
+                Fokus pada pengembangan web, networking, dan penyelesaian masalah teknis
+                di sisi server.
+            </p>
+            <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in-up delay-4">
+                <a href="#projects"
+                    class="group px-8 py-3.5 bg-primary-600 hover:bg-primary-500 text-white font-semibold rounded-full transition-all duration-300 hover:shadow-xl hover:shadow-primary-600/30 flex items-center gap-2">
+                    Lihat Portofolio <i
+                        class="fas fa-arrow-right text-sm group-hover:translate-x-1 transition-transform"></i>
+                </a>
+                <a href="#contact"
+                    class="px-8 py-3.5 border border-dark-700 hover:border-primary-500/50 text-dark-300 hover:text-white font-semibold rounded-full transition-all duration-300 hover:bg-primary-500/5">
+                    Hubungi Saya
+                </a>
+            </div>
+        </div>
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
+            <i class="fas fa-chevron-down text-dark-600"></i>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 lg:py-32 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <p class="text-primary-400 font-semibold text-sm tracking-widest uppercase mb-3">Tentang Saya</p>
+                <h2 class="text-3xl lg:text-5xl font-bold text-white">Get to Know Me</h2>
+            </div>
+            <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+                <div class="relative flex justify-center">
+                    <div class="relative w-72 h-72 sm:w-80 sm:h-80 lg:w-96 lg:h-96">
+                        <div
+                            class="absolute inset-0 rounded-3xl bg-gradient-to-br from-primary-600 to-violet-600 rotate-6 opacity-20">
+                        </div>
+                        <div
+                            class="relative w-full h-full rounded-3xl bg-gradient-to-br from-dark-800 to-dark-900 border border-dark-700 overflow-hidden flex items-center justify-center">
+                            <div class="text-center">
+                                <div
+                                    class="w-32 h-32 mx-auto rounded-full bg-gradient-to-br from-primary-500 to-violet-500 flex items-center justify-center mb-4">
+                                    <span class="text-5xl font-bold text-white">I</span>
+                                </div>
+                                <p class="text-dark-400 text-sm">Ilham</p>
+                                <p class="text-dark-500 text-xs">Backend Developer</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="box">
-                    <button class="box-btn">Portfolio</button>
-                    <div class="dropdown">
-                        <p>Portfolio dan Sertifikasi<br></p>
-                        <a href="https://drive.google.com/drive/folders/1EG3WatgaoWp52rsuOBfX2InFmAqAcyxr?usp=sharing " target="_blank">My Portfolio</a>
-                    </div>
-                </div>
-                <div class="box">
-                    <button class="box-btn">Contact</button>
-                    <div class="dropdown">
-                        <p>Mail : ilhamtrisetyo@gmail.com</p>
+                <div class="space-y-6">
+                    <p class="text-dark-300 leading-relaxed text-base lg:text-lg">
+                        Saya adalah mahasiswa <span class="text-white font-medium">Teknik Informatika</span> yang aktif
+                        dalam pengembangan perangkat lunak dan riset teknologi. Passion saya terletak pada membangun
+                        sistem backend yang robust, merancang arsitektur database yang efisien, dan mengeksplorasi
+                        teknologi terbaru di dunia software engineering.
+                    </p>
+                    <p class="text-dark-300 leading-relaxed text-base lg:text-lg">
+                        Selain kemampuan teknis, saya juga memiliki pengalaman kepemimpinan sebagai <span
+                            class="text-white font-medium">Ketua Unit Kegiatan Mahasiswa (UKM) Protic</span>, dimana
+                        saya mengasah kemampuan kolaborasi, manajemen tim, dan pengambilan keputusan strategis.
+                        Pengalaman ini membentuk saya menjadi developer yang tidak hanya kuat secara teknis, tetapi juga
+                        mampu bekerja efektif dalam tim.
+                    </p>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 pt-4">
+                        <div class="text-center p-4 rounded-2xl bg-dark-900/50 border border-dark-800">
+                            <p class="text-2xl lg:text-3xl font-bold gradient-text">5+</p>
+                            <p class="text-dark-500 text-xs mt-1">Proyek Selesai</p>
+                        </div>
+                        <div class="text-center p-4 rounded-2xl bg-dark-900/50 border border-dark-800">
+                            <p class="text-2xl lg:text-3xl font-bold gradient-text">3+</p>
+                            <p class="text-dark-500 text-xs mt-1">Bahasa Utama</p>
+                        </div>
+                        <div
+                            class="text-center p-4 rounded-2xl bg-dark-900/50 border border-dark-800 col-span-2 sm:col-span-1">
+                            <p class="text-2xl lg:text-3xl font-bold gradient-text">1+</p>
+                            <p class="text-dark-500 text-xs mt-1">Tahun Memimpin</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        
-        <footer>
-                <div class="social-media">
-                    <a href="https://www.linkedin.com/in/ilham-budi-trisetyo-601110290/" target="_blank">
-                        <img src="assets/linkedin.png" alt="LinkedIn" class="social-icon">
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-20 lg:py-32 relative">
+        <div class="blob w-80 h-80 bg-primary-600 top-0 right-0"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16">
+                <p class="text-primary-400 font-semibold text-sm tracking-widest uppercase mb-3">Keahlian</p>
+                <h2 class="text-3xl lg:text-5xl font-bold text-white">Tech Stack & Skills</h2>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Backend & Languages -->
+                <div class="p-8 rounded-3xl bg-dark-900/50 border border-dark-800 card-hover">
+                    <div class="w-14 h-14 rounded-2xl bg-primary-600/10 flex items-center justify-center mb-6">
+                        <i class="fas fa-server text-2xl text-primary-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Backend & Bahasa</h3>
+                    <p class="text-dark-500 text-sm mb-6">Bahasa pemrograman yang dikuasai</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span
+                            class="skill-badge px-4 py-2 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 text-sm font-medium cursor-default">PHP</span>
+                        <span
+                            class="skill-badge px-4 py-2 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 text-sm font-medium cursor-default">Go</span>
+                        <span
+                            class="skill-badge px-4 py-2 rounded-full bg-violet-500/10 text-violet-400 border border-violet-500/20 text-sm font-medium cursor-default">C#</span>
+                        <!-- <span class="skill-badge px-4 py-2 rounded-full bg-yellow-500/10 text-yellow-400 border border-yellow-500/20 text-sm font-medium cursor-default">Python</span> -->
+                        <span
+                            class="skill-badge px-4 py-2 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20 text-sm font-medium cursor-default">JavaScript</span>
+                    </div>
+                </div>
+                <!-- Database -->
+                <div class="p-8 rounded-3xl bg-dark-900/50 border border-dark-800 card-hover">
+                    <div class="w-14 h-14 rounded-2xl bg-emerald-600/10 flex items-center justify-center mb-6">
+                        <i class="fas fa-database text-2xl text-emerald-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Database</h3>
+                    <p class="text-dark-500 text-sm mb-6">Manajemen dan desain database</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span
+                            class="skill-badge px-4 py-2 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20 text-sm font-medium cursor-default">MySQL</span>
+                        <span
+                            class="skill-badge px-4 py-2 rounded-full bg-sky-500/10 text-sky-400 border border-sky-500/20 text-sm font-medium cursor-default">PostgreSQL</span>
+                        <span
+                            class="skill-badge px-4 py-2 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 text-sm font-medium cursor-default">GORM</span>
+                    </div>
+                </div>
+                <!-- Networking & DevOps -->
+                <div class="p-8 rounded-3xl bg-dark-900/50 border border-dark-800 card-hover">
+                    <div class="w-14 h-14 rounded-2xl bg-orange-600/10 flex items-center justify-center mb-6">
+                        <i class="fas fa-network-wired text-2xl text-orange-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Networking & DevOps</h3>
+                    <p class="text-dark-500 text-sm mb-6">Infrastruktur jaringan & server</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span
+                            class="skill-badge px-4 py-2 rounded-full bg-sky-500/10 text-sky-400 border border-sky-500/20 text-sm font-medium cursor-default">Cisco</span>
+                        <span
+                            class="skill-badge px-4 py-2 rounded-full bg-teal-500/10 text-teal-400 border border-teal-500/20 text-sm font-medium cursor-default">MikroTik</span>
+                        <span
+                            class="skill-badge px-4 py-2 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20 text-sm font-medium cursor-default">Linux</span>
+                        <span
+                            class="skill-badge px-4 py-2 rounded-full bg-orange-500/10 text-orange-400 border border-orange-500/20 text-sm font-medium cursor-default">Cloudflare</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 lg:py-32 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <p class="text-primary-400 font-semibold text-sm tracking-widest uppercase mb-3">Portofolio</p>
+                <h2 class="text-3xl lg:text-5xl font-bold text-white">Projects & Experience</h2>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project 1: Sistem Backend JKBFEST -->
+                <a href="https://github.com/MuhammadHadistRifannan/JKBFEST-WEBSITE/" target="_blank">
+                    <div class="group rounded-3xl bg-dark-900/50 border border-dark-800 overflow-hidden card-hover">
+                        <div class="h-48 project-preview bg-gradient-to-br from-amber-600/20 to-orange-600/20">
+                            <img src="https://opengraph.githubassets.com/1/MuhammadHadistRifannan/JKBFEST-WEBSITE"
+                                alt="JKBFEST Preview" loading="lazy" onerror="this.classList.add('img-error')">
+                            <i class="fas fa-server text-6xl text-amber-500/30 fallback-icon"></i>
+                            <div class="preview-icon"><i
+                                    class="fas fa-external-link-alt text-white text-xl drop-shadow-lg"></i></div>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center gap-2 mb-3 flex-wrap">
+                                <span
+                                    class="px-3 py-1 rounded-full bg-primary-500/10 text-primary-400 text-xs font-medium">Backend</span>
+                                <span
+                                    class="px-3 py-1 rounded-full bg-amber-500/10 text-amber-400 text-xs font-medium">Deployment</span>
+                                <span
+                                    class="px-3 py-1 rounded-full bg-orange-500/10 text-orange-400 text-xs font-medium">Event
+                                    Platform</span>
+                                <span
+                                    class="px-3 py-1 rounded-full bg-primary-500/10 text-primary-400 text-xs font-medium">Laravel</span>
+                            </div>
+                            <h3 class="text-lg font-bold text-white mb-2 group-hover:text-amber-300 transition-colors">
+                                Sistem Backend & DevOps JKBFEST</h3>
+                            <p class="text-dark-400 text-sm leading-relaxed">Pengembangan dan deployment sistem backend
+                                untuk platform pendaftaran kompetisi JKB Festival. Berfokus pada stabilitas server,
+                                penanganan traffic pendaftaran, dan troubleshooting performa sistem secara proaktif.</p>
+                        </div>
+                    </div>
+                </a>
+                <!-- Project 2: Knowledge Management System PNC -->
+                <a href="https://github.com/ilhami02/KMS-PNC" target="_blank">
+                    <div class="group rounded-3xl bg-dark-900/50 border border-dark-800 overflow-hidden card-hover">
+                        <div class="h-48 project-preview bg-gradient-to-br from-emerald-600/20 to-teal-600/20">
+                            <img src="https://opengraph.githubassets.com/1/ilhami02/KMS-PNC" alt="KMS PNC Preview"
+                                loading="lazy" onerror="this.classList.add('img-error')">
+                            <i class="fas fa-book-open text-6xl text-emerald-500/30 fallback-icon"></i>
+                            <div class="preview-icon"><i
+                                    class="fas fa-external-link-alt text-white text-xl drop-shadow-lg"></i></div>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center gap-2 mb-3 flex-wrap">
+                                <span
+                                    class="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-medium">Web
+                                    Dev</span>
+                                <span
+                                    class="px-3 py-1 rounded-full bg-teal-500/10 text-teal-400 text-xs font-medium">Architecture</span>
+                                <span
+                                    class="px-3 py-1 rounded-full bg-sky-500/10 text-sky-400 text-xs font-medium">KMS</span>
+                            </div>
+                            <h3
+                                class="text-lg font-bold text-white mb-2 group-hover:text-emerald-300 transition-colors">
+                                Knowledge Management System PNC</h3>
+                            <p class="text-dark-400 text-sm leading-relaxed">Merancang dan mengembangkan Knowledge
+                                Management System terintegrasi untuk Politeknik Negeri Cilacap. Membangun arsitektur
+                                database dan logika backend yang efisien, bersiap untuk tahap deployment.</p>
+                        </div>
+                    </div>
+                </a>
+                <!-- Project 3: Company Profile UKM Medicom -->
+                <a href="https://github.com/ilhami02/company-profile-medicom" target="_blank">
+                    <div class="group rounded-3xl bg-dark-900/50 border border-dark-800 overflow-hidden card-hover">
+                        <div class="h-48 project-preview bg-gradient-to-br from-violet-600/20 to-fuchsia-600/20">
+                            <img src="https://opengraph.githubassets.com/1/ilhami02/company-profile-medicom"
+                                alt="Medicom Preview" loading="lazy" onerror="this.classList.add('img-error')">
+                            <i class="fas fa-laptop-code text-6xl text-violet-500/30 fallback-icon"></i>
+                            <div class="preview-icon"><i
+                                    class="fas fa-external-link-alt text-white text-xl drop-shadow-lg"></i></div>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center gap-2 mb-3 flex-wrap">
+                                <span
+                                    class="px-3 py-1 rounded-full bg-violet-500/10 text-violet-400 text-xs font-medium">Web
+                                    Dev</span>
+                                <span
+                                    class="px-3 py-1 rounded-full bg-fuchsia-500/10 text-fuchsia-400 text-xs font-medium">UI
+                                    Integration</span>
+                                <span
+                                    class="px-3 py-1 rounded-full bg-rose-500/10 text-rose-400 text-xs font-medium">CMS</span>
+                            </div>
+                            <h3 class="text-lg font-bold text-white mb-2 group-hover:text-violet-300 transition-colors">
+                                Company Profile UKM Medicom</h3>
+                            <p class="text-dark-400 text-sm leading-relaxed">Mengembangkan website Company Profile yang
+                                dinamis dan responsif untuk UKM Multimedia Community (Medicom) Politeknik Negeri
+                                Cilacap, dengan fokus pada optimasi performa muat halaman dan integrasi antarmuka.</p>
+                        </div>
+                    </div>
+                </a>
+                <!-- Project 4: API Jentik -->
+                <a href="https://github.com/ilhami02/jentik" target="_blank">
+                    <div class="group rounded-3xl bg-dark-900/50 border border-dark-800 overflow-hidden card-hover">
+                        <div
+                            class="h-48 bg-gradient-to-br from-cyan-600/20 to-blue-600/20 flex items-center justify-center relative overflow-hidden">
+                            <div
+                                class="absolute inset-0 bg-gradient-to-br from-cyan-600/10 to-transparent group-hover:from-cyan-600/20 transition-all duration-500">
+                            </div>
+                            <i
+                                class="fas fa-mosquito text-6xl text-cyan-500/30 group-hover:text-cyan-500/50 group-hover:scale-110 transition-all duration-500"></i>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center gap-2 mb-3">
+                                <span
+                                    class="px-3 py-1 rounded-full bg-cyan-500/10 text-cyan-400 text-xs font-medium">Golang</span>
+                                <span
+                                    class="px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 text-xs font-medium">PostgreSQL</span>
+                                <span
+                                    class="px-3 py-1 rounded-full bg-violet-500/10 text-violet-400 text-xs font-medium">API</span>
+                            </div>
+                            <h3 class="text-lg font-bold text-white mb-2 group-hover:text-cyan-300 transition-colors">
+                                API Jentik (GDGOC)</h3>
+                            <p class="text-dark-400 text-sm leading-relaxed">Pengembangan RESTful API menggunakan Golang
+                                dan PostgreSQL untuk aplikasi pemetaan area rawan jentik nyamuk, termasuk konfigurasi
+                                deployment server.</p>
+                        </div>
+                    </div>
+                </a>
+                <!-- Project 5: Telegram Bot -->
+                <a href="https://github.com/ilhami02/Pengelolaan-Kas-Kelas-TKJ-A" target="_blank">
+                    <div class="group rounded-3xl bg-dark-900/50 border border-dark-800 overflow-hidden card-hover">
+                        <div
+                            class="h-48 bg-gradient-to-br from-sky-600/20 to-indigo-600/20 flex items-center justify-center relative overflow-hidden">
+                            <div
+                                class="absolute inset-0 bg-gradient-to-br from-sky-600/10 to-transparent group-hover:from-sky-600/20 transition-all duration-500">
+                            </div>
+                            <i
+                                class="fab fa-telegram text-6xl text-sky-500/30 group-hover:text-sky-500/50 group-hover:scale-110 transition-all duration-500"></i>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center gap-2 mb-3">
+                                <span
+                                    class="px-3 py-1 rounded-full bg-amber-500/10 text-amber-400 text-xs font-medium">JS</span>
+                                <span
+                                    class="px-3 py-1 rounded-full bg-fuchsia-500/10 text-fuchsia-400 text-xs font-medium">Automation</span>
+                                <span
+                                    class="px-3 py-1 rounded-full bg-sky-500/10 text-sky-400 text-xs font-medium">API</span>
+                            </div>
+                            <h3 class="text-lg font-bold text-white mb-2 group-hover:text-sky-300 transition-colors">
+                                Telegram Bot Automation</h3>
+                            <p class="text-dark-400 text-sm leading-relaxed">Merancang bot Telegram terintegrasi
+                                menggunakan Google Apps Script dan Google Sheets untuk otomatisasi manajemen data
+                                operasional.</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 lg:py-32 relative">
+        <div class="blob w-72 h-72 bg-violet-600 bottom-0 left-0"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16">
+                <p class="text-primary-400 font-semibold text-sm tracking-widest uppercase mb-3">Kontak</p>
+                <h2 class="text-3xl lg:text-5xl font-bold text-white">Hubungi Saya</h2>
+                <p class="mt-4 text-dark-400 max-w-lg mx-auto">Tertarik untuk berkolaborasi atau memiliki pertanyaan?
+                    Jangan ragu untuk menghubungi saya.</p>
+            </div>
+            <div class="grid lg:grid-cols-5 gap-12">
+                <div class="lg:col-span-3">
+                    <form id="contact-form" class="space-y-6">
+                        <div class="grid sm:grid-cols-2 gap-6">
+                            <div>
+                                <label for="name" class="block text-sm font-medium text-dark-300 mb-2">Nama</label>
+                                <input type="text" id="name" placeholder="Nama lengkap"
+                                    class="w-full px-5 py-3.5 rounded-2xl bg-dark-900 border border-dark-700 text-white placeholder-dark-500 focus:outline-none focus:border-primary-500 transition-all">
+                            </div>
+                            <div>
+                                <label for="email" class="block text-sm font-medium text-dark-300 mb-2">Email</label>
+                                <input type="email" id="email" placeholder="email@example.com"
+                                    class="w-full px-5 py-3.5 rounded-2xl bg-dark-900 border border-dark-700 text-white placeholder-dark-500 focus:outline-none focus:border-primary-500 transition-all">
+                            </div>
+                        </div>
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-dark-300 mb-2">Pesan</label>
+                            <textarea id="message" rows="5" placeholder="Tulis pesan Anda di sini..."
+                                class="w-full px-5 py-3.5 rounded-2xl bg-dark-900 border border-dark-700 text-white placeholder-dark-500 focus:outline-none focus:border-primary-500 transition-all resize-none"></textarea>
+                        </div>
+                        <button type="submit"
+                            class="group w-full sm:w-auto px-8 py-3.5 bg-primary-600 hover:bg-primary-500 text-white font-semibold rounded-full transition-all duration-300 hover:shadow-xl hover:shadow-primary-600/30 flex items-center justify-center gap-2">
+                            Kirim Pesan <i
+                                class="fas fa-paper-plane text-sm group-hover:translate-x-1 transition-transform"></i>
+                        </button>
+                    </form>
+                </div>
+                <div class="lg:col-span-2 flex flex-col justify-center space-y-6">
+                    <a href="mailto:ilhamtrisetyo@gmail.com"
+                        class="flex items-center gap-4 p-5 rounded-2xl bg-dark-900/50 border border-dark-800 hover:border-primary-500/30 transition-all group">
+                        <div
+                            class="w-12 h-12 rounded-xl bg-primary-600/10 flex items-center justify-center group-hover:bg-primary-600/20 transition-all">
+                            <i class="fas fa-envelope text-primary-400"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs text-dark-500">Email</p>
+                            <p class="text-sm text-dark-200 font-medium">ilhamtrisetyo@gmail.com</p>
+                        </div>
                     </a>
-                    <a href="https://instagram.com/lilhamts_" target="_blank">
-                        <img src="assets/instagram.png" alt="Instagram" class="social-icon">
+                    <a href="https://github.com/ilhami02" target="_blank"
+                        class="flex items-center gap-4 p-5 rounded-2xl bg-dark-900/50 border border-dark-800 hover:border-primary-500/30 transition-all group">
+                        <div
+                            class="w-12 h-12 rounded-xl bg-dark-700/50 flex items-center justify-center group-hover:bg-dark-700 transition-all">
+                            <i class="fab fa-github text-dark-200 text-lg"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs text-dark-500">GitHub</p>
+                            <p class="text-sm text-dark-200 font-medium">github.com/ilhami02</p>
+                        </div>
                     </a>
-                    <a href="https://github.com/ilhami02" target="_blank">
-                        <img src="assets/github.png" alt="GitHub" class="social-icon">
+                    <a href="https://linkedin.com/in/ilham-budi-trisetyo" target="_blank"
+                        class="flex items-center gap-4 p-5 rounded-2xl bg-dark-900/50 border border-dark-800 hover:border-primary-500/30 transition-all group">
+                        <div
+                            class="w-12 h-12 rounded-xl bg-blue-600/10 flex items-center justify-center group-hover:bg-blue-600/20 transition-all">
+                            <i class="fab fa-linkedin-in text-blue-400"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs text-dark-500">LinkedIn</p>
+                            <p class="text-sm text-dark-200 font-medium">linkedin.com/in/ilham-budi-trisetyo</p>
+                        </div>
                     </a>
                 </div>
-        </footer>
-        <script src="script.js"></script>
-    </body>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 border-t border-dark-800/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                <a href="#home" class="text-lg font-bold"><span class="text-white">&lt;</span><span
+                        class="gradient-text">Dev</span><span class="text-white">/&gt;</span></a>
+                <p class="text-dark-500 text-sm">&copy; 2026 Ilham. All rights reserved.</p>
+                <div class="flex items-center gap-4">
+                    <a href="https://github.com/ilhami02" target="_blank"
+                        class="w-10 h-10 rounded-full bg-dark-800 hover:bg-primary-600/20 flex items-center justify-center text-dark-400 hover:text-primary-400 transition-all"><i
+                            class="fab fa-github"></i></a>
+                    <a href="https://linkedin.com/ilham-budi-trisetyo" target="_blank"
+                        class="w-10 h-10 rounded-full bg-dark-800 hover:bg-primary-600/20 flex items-center justify-center text-dark-400 hover:text-primary-400 transition-all"><i
+                            class="fab fa-linkedin-in"></i></a>
+                    <a href="mailto:ilhamtrisetyo@gmail.com"
+                        class="w-10 h-10 rounded-full bg-dark-800 hover:bg-primary-600/20 flex items-center justify-center text-dark-400 hover:text-primary-400 transition-all"><i
+                            class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('glass', 'shadow-lg', 'shadow-dark-950/50');
+            } else {
+                navbar.classList.remove('glass', 'shadow-lg', 'shadow-dark-950/50');
+            }
+        });
+
+        // Hamburger menu
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const line1 = document.getElementById('line1');
+        const line2 = document.getElementById('line2');
+        const line3 = document.getElementById('line3');
+        let menuOpen = false;
+
+        hamburger.addEventListener('click', () => {
+            menuOpen = !menuOpen;
+            if (menuOpen) {
+                mobileMenu.style.maxHeight = mobileMenu.scrollHeight + 'px';
+                line1.style.transform = 'rotate(45deg) translate(4px, 4px)';
+                line2.style.opacity = '0';
+                line3.style.transform = 'rotate(-45deg) translate(4px, -4px)';
+                line3.style.width = '1.5rem';
+            } else {
+                mobileMenu.style.maxHeight = '0';
+                line1.style.transform = '';
+                line2.style.opacity = '1';
+                line3.style.transform = '';
+                line3.style.width = '1rem';
+            }
+        });
+
+        // Close menu on link click
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => {
+                menuOpen = false;
+                mobileMenu.style.maxHeight = '0';
+                line1.style.transform = '';
+                line2.style.opacity = '1';
+                line3.style.transform = '';
+                line3.style.width = '1rem';
+            });
+        });
+
+        // Scroll animations
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-fade-in-up');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('#about, #skills, #projects, #contact').forEach(section => {
+            section.querySelectorAll('.card-hover, form, .grid > div, .grid > a').forEach((el, i) => {
+                el.style.animationDelay = `${i * 0.1}s`;
+                observer.observe(el);
+            });
+        });
+
+        // Active nav link
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.nav-link');
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const top = section.offsetTop - 100;
+                if (scrollY >= top) current = section.getAttribute('id');
+            });
+            navLinks.forEach(link => {
+                link.classList.remove('text-white');
+                link.classList.add('text-dark-300');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('text-white');
+                    link.classList.remove('text-dark-300');
+                }
+            });
+        });
+
+        // Contact form
+        document.getElementById('contact-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const btn = e.target.querySelector('button[type="submit"]');
+            btn.innerHTML = '<i class="fas fa-check mr-2"></i> Pesan Terkirim!';
+            btn.classList.replace('bg-primary-600', 'bg-emerald-600');
+            setTimeout(() => {
+                btn.innerHTML = 'Kirim Pesan <i class="fas fa-paper-plane text-sm group-hover:translate-x-1 transition-transform"></i>';
+                btn.classList.replace('bg-emerald-600', 'bg-primary-600');
+                e.target.reset();
+            }, 3000);
+        });
+    </script>
+</body>
+
 </html>
